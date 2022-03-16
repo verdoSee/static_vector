@@ -11,17 +11,22 @@ struct static_vector {
 
    public:
 	template <typename... Args>
-	requires(sizeof...(Args) <= TSize) constexpr static_vector(Args&&... args) noexcept
-		: data{args...} {
-		idx_Curr += sizeof...(args);
+	requires(sizeof...(Args) <= TSize) constexpr static_vector(Args &&...args) noexcept : data{args...} {
+		idx_Curr = sizeof...(args);
 	}
 
-	void emplace_back(const TType& val) noexcept {
+	constexpr static_vector() noexcept : idx_Curr(0) {}
+
+	auto emplace_back(const TType &val) noexcept {
 		data[idx_Curr] = val;
 		idx_Curr++;
 	}
 
-	void pop_back() noexcept { idx_Curr--; }
+	auto pop_back() noexcept {
+		idx_Curr--;
+	}
 
-	[[nodiscard]] inline TType& operator[](size_t index) noexcept { return data[index]; }
+	[[nodiscard]] inline decltype(auto) operator[](size_t index) noexcept {
+		return data[index];
+	}
 };

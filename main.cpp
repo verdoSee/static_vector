@@ -5,9 +5,9 @@
 #define size 4
 
 int main() {
-	static_vector<int, size> vec2;
+	static_vector<int, size> vec1{1, 2, 3, 4};
 
-	vec2.pop_back();
+	static_vector<int, size> vec2;
 
 	return 0;
 }

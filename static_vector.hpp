@@ -11,13 +11,13 @@ struct static_vector {
 
    public:
 	template <typename... Args>
-	requires(sizeof...(Args) <= TSize) constexpr static_vector(Args&&... args) noexcept : data{std::forward(args)...} {
+	requires(sizeof...(Args) <= TSize) constexpr static_vector(Args&&... args) noexcept : data{std::forward<Args>(args)...} {
 		idx_Curr = sizeof...(args);
 	}
 
 	constexpr static_vector() noexcept : idx_Curr(0) {}
 
-	auto emplace_back(const TType& val) noexcept {
+	auto emplace_back(const TType&& val) noexcept {
 		data[idx_Curr] = val;
 		idx_Curr++;
 	}
